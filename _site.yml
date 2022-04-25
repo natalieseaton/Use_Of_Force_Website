@@ -4,8 +4,10 @@ navbar:
   left:
     - text: "Home"
       href: index.html
-    - text: "About"
+    - text: "Iraq Regime Crisis (440)"
       href: about.html
+    - text: "Gulf War Crisis (393)"
+      href: iraq_1990_gulf_war.html
 
 output_dir: docs
 
