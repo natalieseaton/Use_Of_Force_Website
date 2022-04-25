@@ -4,7 +4,6 @@ date: 'June 2002 - May 2003'
 
 runtime: shiny
 ---
-
 <style type="text/css">
   body{
   font-family: Helvetica;
@@ -87,13 +86,11 @@ downloadHandler(
 
 ```{r, warning = FALSE}
 
-trend_sheet  <- read_sheet("https://docs.google.com/spreadsheets/d/1s1tsOtG2CcIrLPN7RxT-QRY7vNiYFy8SMA3tbGk_PpI/edit#gid=1633578064")
+trend_sheet  <- read_sheet("https://docs.google.com/spreadsheets/d/1lEf0kQi8LLfC8xExB3iGnMiEBcct0Dkq6D-sHj055SI/edit?usp=sharing")
 
 crisis_trend <- subset(trend_sheet,crisno == "440")
 
-ggplot(crisis_trend, aes(speech_cutoff_date,avg_agg_support)) + geom_smooth(method=lm)
-
-ggplot(Sheet, aes(date, HD)) + geom_jitter(aes(colour = HouseParty), width = 2, height = 0.3, size = 3, alpha = .6)  + ggtitle("Iraq 2002-03") +  
+ggplot(Sheet, aes(date, HD)) +  geom_jitter(aes(colour = HouseParty),width = 2, height = 0.3, size = 3, alpha = .6)  + ggtitle("Iraq 2002-03") +  
 xlab("Date") + # for the x axis label
 ylab("Sentiment") +
     geom_text(
@@ -102,6 +99,7 @@ ylab("Sentiment") +
     geom_text(
     label="Obama Requests AUMF",
     x=as.Date('2013-08-31'), angle = 90,hjust = 0.4, size = 2.4, vjust = 0)+ scale_color_manual(values = c("House Democrat" = "dodgerblue2", "House Republican"="red",
-                                "Senate Democrat" = "dark blue", "Senate Republican" = "firebrick4")) + geom_line(data=crisis_trend, aes(x= as.Date(speech_cutoff_date), y = avg_agg_support))
+                                "Senate Democrat" = "dark blue", "Senate Republican" = "firebrick4")) 
 
 ```
+
