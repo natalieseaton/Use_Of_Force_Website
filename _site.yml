@@ -10,9 +10,9 @@ navbar:
       icon: fa-about
       href: about.html
     - text: "Iraq Regime Crisis (440)"
-      href: iraq_regime_change.html
+      href: crisis_440.html
     - text: "Gulf War Crisis (393)"
-      href: iraq_gulf_war.html
+      href: crisis_393.html
 output:
   html_document:
     highlight: textmate
