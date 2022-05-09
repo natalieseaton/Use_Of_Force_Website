@@ -11,11 +11,12 @@ navbar:
       href: crisno_440.html
     - text: "Gulf War Crisis (393)"
       href: crisno_393.html
+    - text: "Example Crisis (ICB No.)"
+      href: example_website.html
 output:
   html_document:
     highlight: textmate
     theme: flatly
     include:
-   #   after_body: footer.html
     css: styles.css
 
