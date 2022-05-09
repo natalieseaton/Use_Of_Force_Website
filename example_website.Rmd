@@ -62,7 +62,7 @@ Sheet$HD <- ifelse(Sheet$Advocates_for_Use_of_American_Military_Force == "NA",0,
 Sheet$HD <- ifelse(Sheet$HD == 1,"Support Force","Oppose Force")
 
 ## shiny button function below for csv download
-## change the title of the csv file paste 
+## change the title of the csv file after paste function and label function
 ## this is being funky right now so if it doesn't work no stress
 downloadHandler(
   filename = function() { 
