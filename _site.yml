@@ -8,14 +8,14 @@ navbar:
     - text: "About"
       href: about.html
     - text: "Iraq Regime Crisis (440)"
-      href: crisis_440.html
+      href: crisno_440.html
     - text: "Gulf War Crisis (393)"
-      href: crisis_393.html
+      href: crisno_393.html
 output:
   html_document:
     highlight: textmate
     theme: flatly
     include:
-      after_body: footer.html
+   #   after_body: footer.html
     css: styles.css
 
