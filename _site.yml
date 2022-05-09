@@ -4,10 +4,8 @@ navbar:
   type: inverse
   left:
     - text: "Home"
-      icon: fa-home
       href: index.html
     - text: "About"
-      icon: fa-about
       href: about.html
     - text: "Iraq Regime Crisis (440)"
       href: crisis_440.html
@@ -18,6 +16,6 @@ output:
     highlight: textmate
     theme: flatly
     include:
- #     after_body: footer.html
+      after_body: footer.html
     css: styles.css
 
