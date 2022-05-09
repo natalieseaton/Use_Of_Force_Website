@@ -32,6 +32,8 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.13.0/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.13.0/css/v4-shims.min.css" rel="stylesheet" />
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -249,7 +251,10 @@ $(document).ready(function () {
   <a href="index.html">Home</a>
 </li>
 <li>
-  <a href="about.html">About</a>
+  <a href="iraq_regime_change.html">Iraq Regime Crisis (440)</a>
+</li>
+<li>
+  <a href="iraq_1990_gulf_war.html">Gulf War Crisis (393)</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -259,7 +264,7 @@ $(document).ready(function () {
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-<div id="header">
+<div id="section-header">
 
 
 
@@ -269,10 +274,28 @@ $(document).ready(function () {
 </div>
 
 
-<div id="background-information-on-the-crisis" class="section level2">
-<h2>Background Information on the Crisis:</h2>
+<style type="text/css">
+  body{
+  font-family: Helvetica;
+  font-size: 12pt;
+  margin: 50px;
+}
+</style>
+<div id="section-background-information" class="section level2">
+<h2>Background Information:</h2>
 <p>A short paragraph on the crisis to be written by one of the ITL-ers,
-which includes background and any relavent votes, bills, etc.</p>
+which includes background and any relevent votes, bills, etc.</p>
+</div>
+<div id="section-relevent-data" class="section level2">
+<h2>Relevent Data:</h2>
+<a id="out23e4408ce8e021cb" class="btn btn-default shiny-download-link " href="" target="_blank" download>
+<i class="fa fa-download" role="presentation" aria-label="download icon"></i>
+Iraq_2002_Regime_Change (.csv) 
+</a>
+</div>
+<div id="section-plot-on-use-of-force" class="section level2">
+<h2>Plot on Use of Force:</h2>
+<p><img src="index_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
 </div>
 
 
@@ -297,7 +320,7 @@ $(document).ready(function () {
 
 <script>
 $(document).ready(function () {
-  window.buildTabsets("TOC");
+  window.buildTabsets("section-TOC");
 });
 
 $(document).ready(function () {

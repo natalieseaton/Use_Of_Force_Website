@@ -9,10 +9,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Natalie Seaton" />
 
 
-<title>Gulf War Crisis</title>
+<title>Iraq Regime Change Crisis</title>
 
 <script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -252,7 +251,10 @@ $(document).ready(function () {
   <a href="index.html">Home</a>
 </li>
 <li>
-  <a href="about.html">About</a>
+  <a href="iraq_regime_change.html">Iraq Regime Crisis (440)</a>
+</li>
+<li>
+  <a href="iraq_1990_gulf_war.html">Gulf War Crisis (393)</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -262,52 +264,31 @@ $(document).ready(function () {
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-<div id="header">
+<div id="section-header">
 
 
 
-<h1 class="title toc-ignore">Gulf War Crisis</h1>
-<h4 class="author">Natalie Seaton</h4>
+<h1 class="title toc-ignore">Iraq Regime Change Crisis</h1>
+<h4 class="date">June 2002 - May 2003</h4>
 
 </div>
 
 
-<div id="runtime-shiny" class="section level2">
-<h2>runtime: shiny</h2>
-<style type="text/css">
-  body{
-  font-family: Helvetica;
-  font-size: 12pt;
-  margin: 50px;
-}
-</style>
-</div>
-<div id="background-information" class="section level2">
+<div id="section-background-information" class="section level2">
 <h2>Background Information:</h2>
 <p>A short paragraph on the crisis to be written by one of the ITL-ers,
-which includes background and any relevent votes, bills, etc.</p>
+which includes background and any relavent votes, bills, etc.</p>
 </div>
-<div id="relevent-data" class="section level2">
+<div id="section-relevent-data" class="section level2">
 <h2>Relevent Data:</h2>
-<a id="out1c108496448e4dee" class="btn btn-default shiny-download-link " href="" target="_blank" download>
+<a id="out7a1a5aa67f137197" class="btn btn-default shiny-download-link " href="" target="_blank" download>
 <i class="fa fa-download" role="presentation" aria-label="download icon"></i>
-Iraq_1990_Gulf_War (.csv) 
+Iraq_Regime_Change (.csv) 
 </a>
 </div>
-<div id="plot-on-use-of-force" class="section level2">
+<div id="section-plot-on-use-of-force" class="section level2">
 <h2>Plot on Use of Force:</h2>
-<p>#```{r, warning = FALSE}</p>
-<p>ggplot(Sheet, aes(date, HD)) + geom_jitter(aes(colour =
-HouseParty),width = 2, height = 0.3, size = 3, alpha = .6) +
-ggtitle(“Iraq 2002-03”) +<br />
-xlab(“Date”) + # for the x axis label ylab(“Sentiment”) + geom_text(
-label=“Sarin Attack”, x=as.Date(‘2013-08-21’), angle = 90,hjust = -0,
-size = 2.4, vjust = 0)+ geom_text( label=“Obama Requests AUMF”,
-x=as.Date(‘2013-08-31’), angle = 90,hjust = 0.4, size = 2.4, vjust = 0)+
-scale_color_manual(values = c(“House Democrat” = “dodgerblue2”, “House
-Republican”=“red”, “Senate Democrat” = “dark blue”, “Senate Republican”
-= “firebrick4”))</p>
-<p>```</p>
+<p><img src="iraq_regime_change_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
 </div>
 
 
@@ -332,7 +313,7 @@ $(document).ready(function () {
 
 <script>
 $(document).ready(function () {
-  window.buildTabsets("TOC");
+  window.buildTabsets("section-TOC");
 });
 
 $(document).ready(function () {

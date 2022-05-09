@@ -1,7 +1,7 @@
 ---
-title: "Iraq Regime Change Crisis" ## change title to crisis name ie. "Iraq Regime Change Crisis (440)"
-author: "ICB Crisis No. 440" ## add the crisis number form the ICB data set
-date: 'June 2002 - May 2003' ## change date to length of crisis 
+title: "Example Crisis (#Crisis)" ## change title to crisis name ie. "Iraq Regime Change Crisis (440)"
+author: "ICB Crisis No. " ## add the crisis number form the ICB data set "ICB Crisis No. 440"
+date: 'Month Year - Month Year' ## change date to length of crisis "June 2002 - May 2003"
 output: html_document ## add output as an html_document
 runtime: shiny ## use shiny runtime in order to use the shiny packages for applications
 ---
@@ -22,10 +22,10 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 ```
 
 ## Background Information:
-A short paragraph on the crisis to be written by one of the ITL-ers, which includes background and any relevant votes, bills, etc. 
+#### Replace this text with a short paragraph on the crisis to be written by one of the ITL-ers, which includes background and any relevent votes, bills, etc. 
 
 ## Relevent Data:
-```{r, warning = FALSE}
+```{r warning = FALSE}
 ## add in the parenthesis of the read_sheet function the link of the Google sheet
 ## don't use the shared link, use the direct http link from chrome
 Sheet  <- read_sheet("https://docs.google.com/spreadsheets/d/17xk7rBsTFC41Q4GZ5gJBz8f8f2NEdMCUnkVcJCCyNkw/edit#gid=1276040235")
@@ -58,6 +58,7 @@ Sheet$date<-as.Date(as.character(Sheet$date),format="%Y%m%d")
 
 Sheet$HD <- ifelse(Sheet$Advocates_for_Use_of_American_Military_Force == "NA",0,1)
 
+
 Sheet$HD <- ifelse(Sheet$HD == 1,"Support Force","Oppose Force")
 
 ## shiny button function below for csv download
@@ -65,28 +66,25 @@ Sheet$HD <- ifelse(Sheet$HD == 1,"Support Force","Oppose Force")
 ## this is being funky right now so if it doesn't work no stress
 downloadHandler(
   filename = function() { 
-    paste("Iraq_Regime_Change",".csv", sep = "")
+    paste("Iraq_Regime_Change_440",".csv", sep = "")
   }, 
   content = function(file) {
     write.csv(Sheet, file)
   },
-  outputArgs = list(label = "Iraq_Regime_Change (.csv) ")
+  outputArgs = list(label = "Iraq_Regime_Change_440 (.csv) ")
 )
 
 ```
 
 ## Plot on Use of Force:
-
 ```{r, warning = FALSE}
 ## this code subsets all the aggregate data for the trend line, all you have to do to retrieve the trend line for your crisis is change the crisno == "440" value to whatever crisis number the new crisis has
 trend_sheet  <- read_sheet("https://docs.google.com/spreadsheets/d/1s1tsOtG2CcIrLPN7RxT-QRY7vNiYFy8SMA3tbGk_PpI/edit#gid=1633578064")
-
 crisis_trend <- subset(trend_sheet,crisno == "440")
 
 ## remember to change the ggtitle to the title of the crisis and dates
-ggplot(Sheet, aes(date, HD)) + geom_jitter(aes(colour = HouseParty), width = 2, height = 0.3, size = 3, alpha = .6)  + ggtitle("Iraq Regime Change Crisis (June 2002 - May 2003)") +  
+ggplot(Sheet, aes(date, HD)) + geom_jitter(aes(colour = HouseParty), width = 2, height = 0.3, size = 3, alpha = .6)  + ggtitle("Iraq 2002-03") +  
 xlab("Date") + ylab("Sentiment") + scale_color_manual(values = c("House Democrat" = "dodgerblue2", "House Republican"="red","Senate Democrat" = "dark blue", "Senate Republican" = "firebrick4")) + geom_line(data=crisis_trend, aes(x= as.Date(speech_cutoff_date), y = avg_agg_support))
 
 
 ```
-
