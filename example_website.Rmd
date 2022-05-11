@@ -36,17 +36,14 @@ Sheet$Party <- str_sub(Sheet$MasterID,-7,-5)
 Sheet$Party <- ifelse(Sheet$Party == "SBI", 100, Sheet$Party )
 Sheet$HouseParty <- paste(Sheet$House, Sheet$Party)
 
-
 Sheet$HouseParty <- ifelse(Sheet$HouseParty == "H 100", "House Democrat", Sheet$HouseParty)
 Sheet$HouseParty <- ifelse(Sheet$HouseParty == "S 100", "Senate Democrat", Sheet$HouseParty)
 Sheet$HouseParty <- ifelse(Sheet$HouseParty == "H 200", "House Republican", Sheet$HouseParty)
 Sheet$HouseParty <- ifelse(Sheet$HouseParty == "S 200", "Senate Republican", Sheet$HouseParty)
 
-
 Sheet$Irrelevant <- as.character(Sheet$Irrelevant)
 
 Sheet <- subset(Sheet, Sheet$Irrelevant == "NA")
-
 
 Sheet$Advocates_for_Use_of_American_Military_Force <- as.character(Sheet$Advocates_for_Use_of_American_Military_Force)
 Sheet$Advocates_against_Use_of_American_Military_Force <- as.character(Sheet$Advocates_against_Use_of_American_Military_Force)
