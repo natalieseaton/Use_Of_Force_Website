@@ -1,7 +1,7 @@
 ---
-title: "Iraq Regime Change Crisis" ## change title to crisis name ie. "Iraq Regime Change Crisis (440)"
-author: "ICB Crisis No. 440" ## add the crisis number form the ICB data set
-date: 'June 2002 - May 2003' ## change date to length of crisis 
+title: "Iraq Regime Change Crisis (440)" ## change title to crisis name ie. "Iraq Regime Change Crisis (440)"
+author: "ICB Crisis No. 440" ## add the crisis number form the ICB data set "ICB Crisis No. 440"
+date: 'December 2001 - May 2003' ## change date to length of crisis "June 2002 - May 2003"
 output: html_document ## add output as an html_document
 runtime: shiny ## use shiny runtime in order to use the shiny packages for applications
 ---
@@ -22,10 +22,46 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 ```
 
 ## Background Information:
-A short paragraph on the crisis to be written by one of the ITL-ers, which includes background and any relevant votes, bills, etc. 
+#### 2001
+In September, Iraq was first discussed as a serious potential threat to the US by the US War Council at Camp David. There was no evidence linking it to the 9/11 attacks; however, Iraq had barred UN investigators, used chemical weapons against Iran and the Kurds, and began a nuclear proliferation program. 
+
+On December 20, in a bipartisan vote, the House passed a bill regarding inspection to prevent the development of weapons of mass destruction in Iraq. 
+
+On December 28, General Franks gave President Bush the first draft plan of a war against Iraq. 
+
+#### 2002
+On January 29, President Bush highlighted that Iraq was the most egregious threat to US Security. Iraq protested but eventually agreed to meet with the UN Secretary-General. 
+
+By February 14, the US had prepared 200,000 troops for conflict in Iraq. 
+
+On March 3rd, Prime Minister Tony Blair affirmed the UK’s support. 
+
+On September 2, President Bush’s speech to the UN proposed a mandate for action and stated conditions the Iraqis had to meet. 4 days later, Iraq complied and allowed the return of UNMOVIC inspectors. 
+
+On October 3, in a bipartisan vote, the Senate passed a joint resolution in Vote 610 to authorize the US Armed Forces against Iraq. Notable persons include Joe Biden, Barbara Boxer, Hillary Clinton, John Kerry, Chuck Schumer, John McCain, and Mitch McConnell. 1 week later, and the House passed Vote 961 to Authorize the Use of the United States Armed Forces Against Iraq. Nearly all Republicans voted Yea, and about 40% of Democrats voted Yea. Nancy Pelosi and Bernie Sanders voted nay. This is lower than the Gulf War authorization. Nearly all House Democrats, including Nancy Pelosi, Chuck Schumer, and Bernie Sanders, voted Yea on Vote 56 for Persian Gulf Conflict Supplemental Authorization. 
+
+On December 2, Iraq produced a 12,000-page declaration on its weapons capabilities. The UN Chief Weapons inspector Hans Blix announced the declaration contained little new information since 1998. 
+
+On December 19, the US declared Iraq to be in material breach of Resolution 1441, and the Bush Administration began its intervention with diplomacy. 
+
+#### 2003
+On January 13, after dissatisfaction with diplomatic efforts, President Bush communicated his firm intention to go to war against Iraq to Secretary of State Powell. The UK joined the US in large deployments to the Gulf. France and Germany were firmly against action without a UN resolution and Prime Minister Blair persuaded the US to seek a security resolution to mitigate domestic pressure. Blix urged against immediate military action and continued to work with Iraqi authorities in February. 
+
+On March 4, Powell declared the US was ready to go to war, regardless of another resolution (which did fail to pass). 
+
+On March 16, the US, UK, and Spain issued an ultimatum giving Saddam Hussein and his sons 48 hours to flee Iraq or they would initiate war. 
+
+On March 20, the first attack was aimed at killing Saddam Hussein. The Iraqi forces were technologically inferior but employed guerilla tactics. 
+
+On April 9, the US-led coalition seized Baghdad, signaling the fall of Saddam Hussein’s regime, yet his location remained unclear. 
+
+On April 14, the last city, Tikrit, under Hussein’s control fell. 
+
+On May 1, President Bush announced major combat operations were over in Iraq. 
+
 
 ## Relevent Data:
-```{r, warning = FALSE}
+```{r warning = FALSE}
 ## add in the parenthesis of the read_sheet function the link of the Google sheet
 ## don't use the shared link, use the direct http link from chrome
 Sheet  <- read_sheet("https://docs.google.com/spreadsheets/d/17xk7rBsTFC41Q4GZ5gJBz8f8f2NEdMCUnkVcJCCyNkw/edit#gid=1276040235")
@@ -36,17 +72,14 @@ Sheet$Party <- str_sub(Sheet$MasterID,-7,-5)
 Sheet$Party <- ifelse(Sheet$Party == "SBI", 100, Sheet$Party )
 Sheet$HouseParty <- paste(Sheet$House, Sheet$Party)
 
-
 Sheet$HouseParty <- ifelse(Sheet$HouseParty == "H 100", "House Democrat", Sheet$HouseParty)
 Sheet$HouseParty <- ifelse(Sheet$HouseParty == "S 100", "Senate Democrat", Sheet$HouseParty)
 Sheet$HouseParty <- ifelse(Sheet$HouseParty == "H 200", "House Republican", Sheet$HouseParty)
 Sheet$HouseParty <- ifelse(Sheet$HouseParty == "S 200", "Senate Republican", Sheet$HouseParty)
 
-
 Sheet$Irrelevant <- as.character(Sheet$Irrelevant)
 
 Sheet <- subset(Sheet, Sheet$Irrelevant == "NA")
-
 
 Sheet$Advocates_for_Use_of_American_Military_Force <- as.character(Sheet$Advocates_for_Use_of_American_Military_Force)
 Sheet$Advocates_against_Use_of_American_Military_Force <- as.character(Sheet$Advocates_against_Use_of_American_Military_Force)
@@ -58,35 +91,33 @@ Sheet$date<-as.Date(as.character(Sheet$date),format="%Y%m%d")
 
 Sheet$HD <- ifelse(Sheet$Advocates_for_Use_of_American_Military_Force == "NA",0,1)
 
+
 Sheet$HD <- ifelse(Sheet$HD == 1,"Support Force","Oppose Force")
 
 ## shiny button function below for csv download
-## change the title of the csv file paste 
+## change the title of the csv file after paste function and label function
 ## this is being funky right now so if it doesn't work no stress
 downloadHandler(
   filename = function() { 
-    paste("Iraq_Regime_Change",".csv", sep = "")
+    paste("Iraq_Regime_Change_440",".csv", sep = "")
   }, 
   content = function(file) {
     write.csv(Sheet, file)
   },
-  outputArgs = list(label = "Iraq_Regime_Change (.csv) ")
+  outputArgs = list(label = "Iraq_Regime_Change_440 (.csv) ")
 )
 
 ```
 
 ## Plot on Use of Force:
-
 ```{r, warning = FALSE}
 ## this code subsets all the aggregate data for the trend line, all you have to do to retrieve the trend line for your crisis is change the crisno == "440" value to whatever crisis number the new crisis has
 trend_sheet  <- read_sheet("https://docs.google.com/spreadsheets/d/1s1tsOtG2CcIrLPN7RxT-QRY7vNiYFy8SMA3tbGk_PpI/edit#gid=1633578064")
-
 crisis_trend <- subset(trend_sheet,crisno == "440")
 
 ## remember to change the ggtitle to the title of the crisis and dates
-ggplot(Sheet, aes(date, HD)) + geom_jitter(aes(colour = HouseParty), width = 2, height = 0.3, size = 3, alpha = .6)  + ggtitle("Iraq Regime Change Crisis (June 2002 - May 2003)") +  
+ggplot(Sheet, aes(date, HD)) + geom_jitter(aes(colour = HouseParty), width = 2, height = 0.3, size = 3, alpha = .6)  + ggtitle("Iraq 2002-03") +  
 xlab("Date") + ylab("Sentiment") + scale_color_manual(values = c("House Democrat" = "dodgerblue2", "House Republican"="red","Senate Democrat" = "dark blue", "Senate Republican" = "firebrick4")) + geom_line(data=crisis_trend, aes(x= as.Date(speech_cutoff_date), y = avg_agg_support))
 
 
 ```
-
