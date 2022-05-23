@@ -1,0 +1,93 @@
+---
+title: "India Pakistan Nuclear Tests (#425)" ## change title to crisis name ie. "Iraq Regime Change Crisis (440)"
+author: "ICB Crisis No. 425" ## add the crisis number form the ICB data set "ICB Crisis No. 440"
+date: 'May 1998 - June 1998' ## change date to length of crisis "June 2002 - May 2003"
+output: html_document ## add output as an html_document
+runtime: shiny ## use shiny runtime in order to use the shiny packages for applications
+---
+
+```{r setup, include=FALSE}
+## firstly add all necessary packages, in order for the document to run, the packages must be first installed via the console unless you already have them in your RStudio, use "install_packages" as the command in the console
+library(shiny)
+library(ggplot2)
+library(DT)
+library(kableExtra)
+library(tidyverse)
+library(dplyr)
+library(googlesheets4)
+library(stringr)
+
+## second require the knit function to be "knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)" in order for all output to go from Rmarkdown to HTML
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+```
+
+## Background Information:
+#### In March 1998, the nationalist BJP party formed a coalition and pursued a more aggressive foreign policy regarding nuclear weapons. In April 1998, Pakistan tested its medium-range surface-to-surface Ghauri missile, which was significant because it could reach India. On May 11 and 13, 1998, India conducted five underground nuclear tests, breaking a 24-year self-imposed moratorium on nuclear testing. This event reversed India’s former stance on the Comprehensive Test Ban Treaty (CTBT), which India’s first prime minister championed. Pakistan was expected to follow suit, so the US immediately urged the Pakistani prime ministers against conducting nuclear tests in response. Additionally, the Glenn Amendment passed in 1977 required the US to impose economic sanctions on any state that detonated a nuclear device. India faced the sanctions nearly a couple of weeks after its tests. 
+
+
+#### On May 18, the Indian Home Minister announced that India would follow a ‘pro-active’ policy towards Pakistani interference in Kashmir, yet on May 21, it offered to negotiate a ‘no-first-use- nuclear pact with Pakistan. This was likely to ensure Pakistan would reject US offers and prevent India from being singled out and subject to international pressure. Pakistan followed shortly after by detonating five nuclear devices. In response, the US similarly imposed sanctions on Pakistan. At this point, Canada, Germany, and Japan joined the US in also cutting off bilateral aid to India and Pakistan. On June 11, the crisis ended because the Pakistani government stated it was ready to formalize an arrangement with India and the international community. 
+
+#### The US urged India and Pakistan to join the CTBT. Both states did not oblige. After 9/11, the US sought Pakistan’s help in the “War on Terror,” and the remaining sanctions were lifted in September 2001. 
+
+
+## Relevent Data:
+```{r warning = FALSE}
+## add in the parenthesis of the read_sheet function the link of the Google sheet
+## don't use the shared link, use the direct http link from chrome
+Sheet  <- read_sheet("https://docs.google.com/spreadsheets/d/1mtVhHENgYyFaApb914Cc2R_KD3SuoME0ScAxW_oQTRE/edit#gid=1276040235")
+
+## data cleaning and subset below, functions for all sheets
+Sheet$House <- str_sub(Sheet$MasterID,-4,-4)
+Sheet$Party <- str_sub(Sheet$MasterID,-7,-5)
+Sheet$Party <- ifelse(Sheet$Party == "SBI", 100, Sheet$Party )
+Sheet$HouseParty <- paste(Sheet$House, Sheet$Party)
+
+Sheet$HouseParty <- ifelse(Sheet$HouseParty == "H 100", "House Democrat", Sheet$HouseParty)
+Sheet$HouseParty <- ifelse(Sheet$HouseParty == "S 100", "Senate Democrat", Sheet$HouseParty)
+Sheet$HouseParty <- ifelse(Sheet$HouseParty == "H 200", "House Republican", Sheet$HouseParty)
+Sheet$HouseParty <- ifelse(Sheet$HouseParty == "S 200", "Senate Republican", Sheet$HouseParty)
+
+Sheet$Irrelevant <- as.character(Sheet$Irrelevant)
+
+Sheet <- subset(Sheet, Sheet$Irrelevant == "NA")
+
+Sheet$Advocates_for_Use_of_American_Military_Force <- as.character(Sheet$Advocates_for_Use_of_American_Military_Force)
+Sheet$Advocates_against_Use_of_American_Military_Force <- as.character(Sheet$Advocates_against_Use_of_American_Military_Force)
+
+Sheet <- subset(Sheet, Sheet$Advocates_for_Use_of_American_Military_Force == 1 | Sheet$Advocates_against_Use_of_American_Military_Force == 1)
+
+
+Sheet$date<-as.Date(as.character(Sheet$date),format="%Y%m%d")
+
+Sheet$HD <- ifelse(Sheet$Advocates_for_Use_of_American_Military_Force == "NA",0,1)
+
+
+Sheet$HD <- ifelse(Sheet$HD == 1,"Support Force","Oppose Force")
+
+## shiny button function below for csv download
+## change the title of the csv file after paste function and label function
+## this is being funky right now so if it doesn't work no stress
+downloadHandler(
+  filename = function() { 
+    paste("Iraq_Regime_Change_440",".csv", sep = "")
+  }, 
+  content = function(file) {
+    write.csv(Sheet, file)
+  },
+  outputArgs = list(label = "Iraq_Regime_Change_440 (.csv) ")
+)
+
+```
+
+## Plot on Use of Force:
+```{r, warning = FALSE}
+## this code subsets all the aggregate data for the trend line, all you have to do to retrieve the trend line for your crisis is change the crisno == "440" value to whatever crisis number the new crisis has
+trend_sheet  <- read_sheet("https://docs.google.com/spreadsheets/d/1mtVhHENgYyFaApb914Cc2R_KD3SuoME0ScAxW_oQTRE/edit#gid=1276040235")
+crisis_trend <- subset(trend_sheet,crisno == "425")
+
+## remember to change the ggtitle to the title of the crisis and dates
+ggplot(Sheet, aes(date, HD)) + geom_jitter(aes(colour = HouseParty), width = 2, height = 0.3, size = 3, alpha = .6)  + ggtitle("India Pakistan Nuclear Tests 1998") +  
+xlab("Date") + ylab("Sentiment") + scale_color_manual(values = c("House Democrat" = "dodgerblue2", "House Republican"="red","Senate Democrat" = "dark blue", "Senate Republican" = "firebrick4")) + geom_line(data=crisis_trend, aes(x= as.Date(speech_cutoff_date), y = avg_agg_support))
+
+
+```
