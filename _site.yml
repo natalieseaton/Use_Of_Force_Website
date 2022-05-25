@@ -16,7 +16,7 @@ navbar:
 output:
   html_document:
     highlight: textmate
-    theme: flatly
+    theme: lumen
     include:
     css: styles.css
 
