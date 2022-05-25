@@ -1,5 +1,5 @@
 ---
-title: "Gulf War Crisis" ## change title to crisis name ie. "Iraq Regime Change Crisis (440)"
+title: "Gulf War Crisis (393)" ## change title to crisis name ie. "Iraq Regime Change Crisis (440)"
 author: "ICB Crisis No. 393" ## add the crisis number form the ICB data set
 date: 'August 1990 - February 1991' ## change date to length of crisis 
 output: html_document ## add output as an html_document
