@@ -1,5 +1,19 @@
 ---
-title: "About"
+title: "Patrick Hulme"
+runtime: shiny
 ---
 
-#### More about the data used for this research on Congressional-Executive Relations and the Use of Military Force. 
+I am a Ph.D. candidate in political science at the University of California, San Diego, where I am a Jacobs Fellow. I am a Junior Scholar at the Carnegie International Policy Scholar Consortium and Network (IPSCON), and for the 2020-2021 academic year I was a Hans J. Morgenthau Fellow (non-resident) at the Notre Dame International Security Center. My research and teaching interests include congressional-executive relations in U.S. foreign policy, the U.S.-China relationship, and international security. I have been a graduate student researcher for the Center for Peace and Security Studies (cPASS), the 21st Century China Center, and the Institute on Global Conflict and Cooperation (IGCC). My work has been published by International Studies Quarterly, The National Interest, and Lawfare, and I hold a B.A. in Economics with a minor in Chinese from the University of California, Davis, and a J.D.—with a specialization in International and Comparative Law—from the UCLA School of Law.
+
+### Undergraduate Researchers - MSSL (Machine Learning for Social Science Lab)
+__Anurag Asthana__  
+__Kevin Chin__  
+__Gurman Dhaliwal__  
+__Natalie Gold__  
+__Vorathip Plengpanit__  
+
+### Undergraduate Researchers - ITL (In-The-Loop Lab )
+__Manuel Aguilera-Prieto__  
+__Jiayi Li__  
+__Duy Nguyen__  
+__Carlos Paredes__  

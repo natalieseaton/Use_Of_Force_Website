@@ -22,14 +22,14 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 ```
 
 ## Background Information:
-#### 2001
+#### __2001__
 In September, Iraq was first discussed as a serious potential threat to the US by the US War Council at Camp David. There was no evidence linking it to the 9/11 attacks; however, Iraq had barred UN investigators, used chemical weapons against Iran and the Kurds, and began a nuclear proliferation program. 
 
 On December 20, in a bipartisan vote, the House passed a bill regarding inspection to prevent the development of weapons of mass destruction in Iraq. 
 
 On December 28, General Franks gave President Bush the first draft plan of a war against Iraq. 
 
-#### 2002
+#### __2002__
 On January 29, President Bush highlighted that Iraq was the most egregious threat to US Security. Iraq protested but eventually agreed to meet with the UN Secretary-General. 
 
 By February 14, the US had prepared 200,000 troops for conflict in Iraq. 
@@ -44,7 +44,7 @@ On December 2, Iraq produced a 12,000-page declaration on its weapons capabiliti
 
 On December 19, the US declared Iraq to be in material breach of Resolution 1441, and the Bush Administration began its intervention with diplomacy. 
 
-#### 2003
+#### __2003__
 On January 13, after dissatisfaction with diplomatic efforts, President Bush communicated his firm intention to go to war against Iraq to Secretary of State Powell. The UK joined the US in large deployments to the Gulf. France and Germany were firmly against action without a UN resolution and Prime Minister Blair persuaded the US to seek a security resolution to mitigate domestic pressure. Blix urged against immediate military action and continued to work with Iraqi authorities in February. 
 
 On March 4, Powell declared the US was ready to go to war, regardless of another resolution (which did fail to pass). 
