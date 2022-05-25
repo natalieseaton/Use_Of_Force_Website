@@ -1,7 +1,7 @@
 ---
 title: "Congressional Sentiment on Use of Force Crisis Data"
 author: 'Patrick Hulme, UCSD.'
-
+output: html_document
 runtime: shiny
 ---
 

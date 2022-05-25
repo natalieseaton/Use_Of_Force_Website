@@ -1,5 +1,6 @@
 ---
 title: "Patrick Hulme"
+output: html_document
 runtime: shiny
 ---
 
