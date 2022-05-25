@@ -7,6 +7,8 @@ navbar:
       href: index.html
     - text: "About"
       href: about.html
+    - text: "India Pakistan Nuclear Tests (425)"
+      href: crisno_425.html
     - text: "Iraq Regime Crisis (440)"
       href: crisno_440.html
     - text: "Gulf War Crisis (393)"
