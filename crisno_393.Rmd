@@ -1,7 +1,7 @@
 ---
-title: "Gulf War Crisis (393)" ## change title to crisis name ie. "Iraq Regime Change Crisis (440)"
-author: "ICB Crisis No. 393" ## add the crisis number form the ICB data set
-date: 'August 1990 - February 1991' ## change date to length of crisis 
+title: "Gulf War (#393)" ## change title to crisis name ie. "Iraq Regime Change Crisis (440)"
+author: "ICB Crisis No. 393" ## add the crisis number form the ICB data set "ICB Crisis No. 440"
+date: 'May 1990 - April 1991' ## change date to length of crisis "June 2002 - May 2003"
 output: html_document ## add output as an html_document
 runtime: shiny ## use shiny runtime in order to use the shiny packages for applications
 ---
@@ -22,13 +22,32 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 ```
 
 ## Background Information:
-#### Replace this text with a short paragraph on the crisis to be written by one of the ITL-ers, which includes background and any relevent votes, bills, etc. 
+The Gulf War was a crisis was a military campaign by the US-led coalition against Iraq from August 2, 1990, to April 12, 1991. 
+
+**May - July 1990**
+The war stemmed when Iraq’s oil production declined drastically during the 1990s, and it experienced difficulty replaying its loans received during the Iran and Iraq war to Kuwait and the UAE. On May 28, 1990, Saddam Hussein accused Kuwait and the UAE of waging an economic war against Iraq at the Arab League meeting. On July 31, Iraq and Kuwait 1 session of talks, Kuwait rejected Iraq’s demand for strategic islands, and six Iraqi divisions were positioned along Kuwait’s border. A few days later on August 2nd, Iraqi forces invaded and occupied Kuwait within six hours. The same day, the US released a statement condemning the invasion. Additionally, the UN Security Council adopted Resolution 660 and the Arab League released a statement, both with similar sentiments as the US statements. On August 2nd, the House passed a Resolution condemning Iraq’s invasion of Kuwait and in Vote 654, every member voted in favor of imposing sanctions on Iraq due to its invasion of Kuwait. 
+
+**August 1990**
+On August 3rd, Iraqi forces were positioned on the Saudi Arabia border. The Council of Europe and the UN Security Council imposed sanctions on August 4th and August 6th. On August 8th, the US announced it would deploy 50,000 troops to Saudi Arabia to ensure Iraq’s compliance with UN resolutions. On August 16th, Iraq took thousands of foreigners as hostages. On August 19th, a UN resolution demanded the hostages’ release. On August 23rd, Saddam Hussein threatened to attack Saudi Arabia's oil fields and Isreal of the UN sanctions continued. 
+
+**October 1990**
+On October 1st, the House passed a Bill to support actions President Bush had taken with respect to Iraqi aggression against Kuwait, which included sending armed forced into the Gulf. Nearly all Democrats, including Chuck Schumer, voted Yea. Nancy Pelosi voted No. Most Respublicans also voted Yea. On October 23rd, The House passed a Resolution, with the support of nearly all members, to express that Iraq’s invasion of Kuwait must be resolved independent of other conflicts in the region. On October 30th, President Bush secretly approved a military campaign for air, naval, and ground forces in the upcoming months. Publically, on November 8th, President Bush announced 150,000 more troops would be assigned to the Gulf region. 
+
+**November - December 1990**
+With much US encouragement, on November 29th, the Security Council adopted Resolution 678 that authorized the “use of all necessary means” by member states to secure Iraq’s compliance with earlier resolutions and specified a deadline for the withdrawal: January 15, 1991. Saddam Hussein immediately rejected the resolution but on November 30th, Bush offered the US offer for high-level talks. On December 6th, Saddam Hussein released all hostages. 
+
+**January 1990**
+On January 2nd, 1991, to protect Turkey from a potential Iraqi attack, NATO decided to dispatch aircraft. The US would lead a coalition of 28 states. On January 12th, the House passed a resolution to express the sense that Congress must approve any offensive military action against Iraq. Nearly all Democrats voted Yea and only a minority of Republicians voted Yea. On January 12th, the House passed a bill to authorize the use of US armed forces pursuant to the UN Security Council Resolution 678. Only a third of Democrats voted Yea. Nancy Pelosi, Chuck Schumer, and Bernie Sanders voted No. On the same day in the Senate, a joint resolution declaring that the Constitution vests all power to declare power in Congress and that Congress would consider any request for authorization of military force was defeated. Two thirds of Democrats voted Yea and nearly all Republicans voted No. President Biden voted Yea and Mitch McConnell voted No. The Senate did pass the joint resolution to authorize the use of US armed forced in pursuant to UN Security Council Resolution 678. Only a fraction of a Democrats, but nearly all Republicans voted Yea. Al Gore, John McCain, and Mitch McConnel voted Yea. President Biden voted No. On January 15th, President Bush formally committed to war and informed Saudia Arabia, Israeli, and USSR leaders soon after. The war began with a saturated bombing that lasted for 38 days. The USSR tried to mediate between Iraq and the US but had only a marginal impact. 
+
+**February - April 1990**
+On February 24th, the coalition began its combined land, air, and naval attacks on Iraq and in four days Iraqi forces began to yield. On the 27th, the US declared a “suspension of offensive combat operations” and Iraq accepted an informal cease-fire on the 28th. The terms for the interim cease-fire were specified and adopted by the UN Security Council’s Resolution on March 2nd, which Iraq accepted on March 6th. The UN Security Council passed Resolution 687, which codified long-term cease-fire conditions, on April 3rd, and Iraq accepted it on April 6th. The US troops started leaving Iraq on April 8th, and on April 9, the UN Security Council deployed a peacekeeping force to the Iraq/Kuwait border. 
+
 
 ## Relevent Data:
-```{r, warning = FALSE}
+```{r warning = FALSE}
 ## add in the parenthesis of the read_sheet function the link of the Google sheet
 ## don't use the shared link, use the direct http link from chrome
-Sheet  <- read_sheet("https://docs.google.com/spreadsheets/d/1jx9-rlPCkUw-gJvTQValRG84TKs4vQ60uNrmpm-XQ9U/edit?usp=sharing")
+Sheet  <- read_sheet("https://docs.google.com/spreadsheets/d/1jx9-rlPCkUw-gJvTQValRG84TKs4vQ60uNrmpm-XQ9U/edit#gid=1276040235")
 
 ## data cleaning and subset below, functions for all sheets
 Sheet$House <- str_sub(Sheet$MasterID,-4,-4)
@@ -36,17 +55,14 @@ Sheet$Party <- str_sub(Sheet$MasterID,-7,-5)
 Sheet$Party <- ifelse(Sheet$Party == "SBI", 100, Sheet$Party )
 Sheet$HouseParty <- paste(Sheet$House, Sheet$Party)
 
-
 Sheet$HouseParty <- ifelse(Sheet$HouseParty == "H 100", "House Democrat", Sheet$HouseParty)
 Sheet$HouseParty <- ifelse(Sheet$HouseParty == "S 100", "Senate Democrat", Sheet$HouseParty)
 Sheet$HouseParty <- ifelse(Sheet$HouseParty == "H 200", "House Republican", Sheet$HouseParty)
 Sheet$HouseParty <- ifelse(Sheet$HouseParty == "S 200", "Senate Republican", Sheet$HouseParty)
 
-
 Sheet$Irrelevant <- as.character(Sheet$Irrelevant)
 
 Sheet <- subset(Sheet, Sheet$Irrelevant == "NA")
-
 
 Sheet$Advocates_for_Use_of_American_Military_Force <- as.character(Sheet$Advocates_for_Use_of_American_Military_Force)
 Sheet$Advocates_against_Use_of_American_Military_Force <- as.character(Sheet$Advocates_against_Use_of_American_Military_Force)
@@ -62,29 +78,29 @@ Sheet$HD <- ifelse(Sheet$Advocates_for_Use_of_American_Military_Force == "NA",0,
 Sheet$HD <- ifelse(Sheet$HD == 1,"Support Force","Oppose Force")
 
 ## shiny button function below for csv download
-## change the title of the csv file paste 
+## change the title of the csv file after paste function and label function
 ## this is being funky right now so if it doesn't work no stress
 downloadHandler(
   filename = function() { 
-    paste("Iraq_1990_Gulf_War",".csv", sep = "")
+    paste("Gulf_War_393",".csv", sep = "")
   }, 
   content = function(file) {
     write.csv(Sheet, file)
   },
-  outputArgs = list(label = "Iraq_1990_Gulf_War (.csv) ")
+  outputArgs = list(label = "Gulf_War_393 (.csv) ")
 )
+
 ```
 
 ## Plot on Use of Force:
-
 ```{r, warning = FALSE}
 ## this code subsets all the aggregate data for the trend line, all you have to do to retrieve the trend line for your crisis is change the crisno == "440" value to whatever crisis number the new crisis has
-trend_sheet  <- read_sheet("https://docs.google.com/spreadsheets/d/1s1tsOtG2CcIrLPN7RxT-QRY7vNiYFy8SMA3tbGk_PpI/edit#gid=1633578064")
-
+trend_sheet  <- read_sheet("https://docs.google.com/spreadsheets/d/1jx9-rlPCkUw-gJvTQValRG84TKs4vQ60uNrmpm-XQ9U/edit#gid=1276040235")
 crisis_trend <- subset(trend_sheet,crisno == "393")
 
 ## remember to change the ggtitle to the title of the crisis and dates
-ggplot(Sheet, aes(date, HD)) +  geom_jitter(aes(colour = HouseParty),width = 2, height = 0.3, size = 3, alpha = .6)  + ggtitle("Gulf War Crisis (August 1990 - February 1991)") +  
-xlab("Date") + ylab("Sentiment") + scale_color_manual(values = c("House Democrat" = "dodgerblue2", "House Republican"="red", "Senate Democrat" = "dark blue", "Senate Republican" = "firebrick4")) + geom_line(data=crisis_trend, aes(x= as.Date(speech_cutoff_date), y = avg_agg_support))
+ggplot(Sheet, aes(date, HD)) + geom_jitter(aes(colour = HouseParty), width = 2, height = 0.3, size = 3, alpha = .6)  + ggtitle("Gulf War 1990-1991") +  
+xlab("Date") + ylab("Sentiment") + scale_color_manual(values = c("House Democrat" = "dodgerblue2", "House Republican"="red","Senate Democrat" = "dark blue", "Senate Republican" = "firebrick4")) + geom_line(data=crisis_trend, aes(x= as.Date(speech_cutoff_date), y = avg_agg_support))
+
 
 ```
