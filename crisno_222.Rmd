@@ -1,0 +1,117 @@
+---
+title: "Six Day War (222)"
+author: 
+- <a href="http://www.icb.umd.edu/dataviewer/?crisno=222">ICB Crisis No. 222</a> | <a href="https://www.crisisevents.org/222.html">ICBe Crisis No. 222</a> | <a href="https://library.cqpress.com/cqalmanac/document.php?id=cqal67-1312999&type=toc&num=18">CQ Almanac</a> 
+date: "June 1967"
+runtime: shiny
+output: html_document
+---
+  
+```{r setup, include=FALSE}
+## firstly add all necessary packages, in order for the document to run, the packages must be first installed via the console unless you already have them in your RStudio, use "install_packages" as the command in the console
+library(downloadthis)
+library(shiny)
+library(ggplot2)
+library(DT)
+library(kableExtra)
+library(tidyverse)
+library(dplyr)
+library(googlesheets4)
+library(stringr)
+
+
+## second require the knit function to be "knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)" in order for all output to go from Rmarkdown to HTML
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+```
+
+## Summary of Crisis:
+The Six Day War was a conflict involving the US, USSR, Israel, Egypt, Syria, and Jordan. The conflict was also part of the protracted Arab-Isreali Conflict.
+
+**Background**
+Tensions between Israel and Arab states remained high in the decades following Israel’s independence in 1948. By the late 1960s, disputes in East Jerusalem escalated as Israel accused Syria of supporting violent Pro-Palestianian demonstrations. In May 1967, Soviet and Syrian intelligence falsely reported that Israel was preparing an invasion of Syria. Taking the intelligence information to be true, Egyptian President Gamal Abd al-Nasser swiftly moved to unite Arab nations against potential Israeli aggression. 
+First, Nasser ordered Egyptian troops into the Sinai Peninsula. Then, Nasser demanded the withdrawal of UN peacekeeping troops from the Sinai Peninsula. To Nasser’s surprise, the UN complied and vacated the border between Egypt and Israel. On May 22, Nasser announced a blockade of Israeli shipping through the Straits of Tiran, effectively barring Israel access to the Red Sea. Finally, on May 30, Nasser brokered a mutual defense pact with Jordan. A few days later, Nasser finalized a similar pact with Iraq. 
+Nasser’s brinkmanship alarmed the US and Israel. On May 23, President Lyndon B. Johnson denounced Egypt’s blockade in the Straits of Tiran. Meanwhile, Israel viewed Egypt’s actions as blatant acts of war.
+
+**June 1967**
+The war began on June 5, 1967 when Israel launched preemptive air attacks on Egypt, Jordan, and Syria. After securing air superiority, Israel deployed ground troops across three different fronts. First, Israel pushed Egyptian troops out of the Sinai Peninsula and captured the east bank of the Suez Canal. Following Egypt’s defeat, Israel pushed Jordan completely out of East Jerusalem and occupied the West Bank. Then, Israel defeated Syrian forces and took control of the Golan Heights. Although Egypt, Jordan, and Syria surrendered at different times, the war officially came to an end on June 11 after all belligerents agreed to a UN-sponsored ceasefire.
+Throughout the course of the war, the US declared neutrality. However, internal conversations reveal that the US was sympathetic to the Israeli cause. According to Republican Senator Thruston P. Morton, Secretary of State Dean Rusk called the war “quite a victory for the west” since it bolstered Israel’s geopolitical position while simultaneously exposing “provocative Soviet diplomacy in the Middle East” (Jun 8, 1967, U.S. VOWS TO SEEK A DURABLE PEACE, New York Times). President Johnson even considered US military action, but feared that Congress would not authorize the use of military force. Furthermore, President Johnson was unwilling to act unilaterally. In a conversation with Israeli Prime Minister Levi Eshkol, President Johnson stated that he could not commit to sending American forces without the backing of Congress.
+In the immediate aftermath, the Associated Press conducted a survey to measure Congressional sentiment towards the war. Of the 438 Members of Congress who responded, 364 Members expressed a desire to give Israel national security assurances and demanded that Israel be granted access to the Suez Canal and the Gulf of Aqaba. Of the remaining respondents, 41 Members expressed similar desires with minor qualifications and 33 declined to provide an opinion.
+On June 19, President Johnson delivered a speech where he laid out a five-point plan for peace in the Middle East. The plan called for (1) Arab countries and Israel to mutually respect and recognize their sovereignty, (2) justice for displaced Arab refugees, (3) the preservation of maritime rights, including the reopening of the Straits of Tiran, (4) reduced military arms sales to Middle East countries, and (5) unanimous recognition of territorial boundaries between Middle Eastern countries (Jun 19 1967, President’s Plan, New York Times). The last point was particularly open-ended, as President Johnson did not clarify if Israel was entitled to the areas it had occupied during the war. 
+	Following President Johnson’s speech, 61 US Senators co-sponsored S. Res 143. The resolution essentially codified President Johnson’s five point plan, and encouraged Israel and Arab countries to seek a third party arbitrator, such as the UN, to permanently resolve the crisis. A similar resolution, H. Res 645, was supported by 101 members of the House, with an added provision that called for Israeli troops to remain in occupied territories before the commencement of peace talks.
+
+**Aftermath**
+Following the war, Israel remained in the occupied areas of the Sinai Peninsula, West Bank, and Golan Heights. Recognition of Israel’s new borders raised murky geopolitical questions, but on November 22, 1967, the UN Security Council adopted Resolution 242. The resolution denounced acquisition of territory through acts of war and urged the need for regional peace through the withdrawal of Israeli troops from occupied territories. Despite gaining Egyptian, Jordanian, and Israeli support, Palestanian organizations refused to endorse the resolution and the resolution proved too vague to be enforceable. In 1970, Secretary of State William Rogers managed to secure a series of ceasefire agreements between Egypt, Jordan, and Israel. While this quelled violence, Secretary Rogers failed to convince Israel to withdraw from occupied territories. Unresolved disputes from the Six Day War would eventually set the stage for the Yom Kippur War in 1973. 
+
+
+## Relevent Data:
+```{r, warning = FALSE}
+
+## add in the parenthesis of the read_sheet function the link of the Google sheet
+## don't use the shared link, use the direct http link from chrome
+
+Sheet  <- read_sheet("https://docs.google.com/spreadsheets/d/1czAtrlX3hAV4OICWhC-9mtawig8lH16lbKRMDE0mI3E/edit#gid=1276040235")
+
+## data cleaning and subset below, functions for all sheets
+Sheet$House <- str_sub(Sheet$MasterID,-4,-4)
+Sheet$Party <- str_sub(Sheet$MasterID,-7,-5)
+Sheet$Party <- ifelse(Sheet$Party == "SBI", 100, Sheet$Party )
+Sheet$HouseParty <- paste(Sheet$House, Sheet$Party)
+
+Sheet$HouseParty <- ifelse(Sheet$HouseParty == "H 100", "House Democrat", Sheet$HouseParty)
+Sheet$HouseParty <- ifelse(Sheet$HouseParty == "S 100", "Senate Democrat", Sheet$HouseParty)
+Sheet$HouseParty <- ifelse(Sheet$HouseParty == "H 200", "House Republican", Sheet$HouseParty)
+Sheet$HouseParty <- ifelse(Sheet$HouseParty == "S 200", "Senate Republican", Sheet$HouseParty)
+
+Sheet$Irrelevant <- as.character(Sheet$Irrelevant)
+
+Sheet <- subset(Sheet, Sheet$Irrelevant == "NA")
+
+Sheet$Advocates_for_Use_of_American_Military_Force <- as.character(Sheet$Advocates_for_Use_of_American_Military_Force)
+Sheet$Advocates_against_Use_of_American_Military_Force <- as.character(Sheet$Advocates_against_Use_of_American_Military_Force)
+
+Sheet <- subset(Sheet, Sheet$Advocates_for_Use_of_American_Military_Force == 1 | Sheet$Advocates_against_Use_of_American_Military_Force == 1)
+
+
+Sheet$date<-as.Date(as.character(Sheet$date),format="%Y%m%d")
+
+Sheet$HD <- ifelse(Sheet$Advocates_for_Use_of_American_Military_Force == "NA",0,1)
+
+
+Sheet$HD <- ifelse(Sheet$HD == 1,"Support Force","Oppose Force")
+
+## shiny button function below for csv download
+## change the title of the csv file paste 
+## this is being funky right now so if it doesn't work no stress
+Sheet %>%
+  download_this(
+    output_name = "six_day_war_222_dataset",
+    output_extension = ".xlsx",
+    button_label = "Download data as xlsx",
+    button_type = "primary",
+    has_icon = TRUE,
+    icon = "fa fa-save"
+  )
+
+```
+
+## Plot on Use of Force:
+
+```{r, warning = FALSE}
+
+## this code subsets all the aggregate data for the trend line, all you have to do to retrieve the trend line for your crisis is change the crisno == "440" value to whatever crisis number the new crisis has
+trend_sheet  <- read_sheet("https://docs.google.com/spreadsheets/d/1s1tsOtG2CcIrLPN7RxT-QRY7vNiYFy8SMA3tbGk_PpI/edit#gid=1633578064")
+crisis_trend <- subset(trend_sheet,crisno == "222")
+
+## remember to change the ggtitle to the title of the crisis and dates
+ggplot(Sheet, aes(date, HD)) +  geom_jitter(aes(colour = HouseParty),width = 2, height = 0.3, size = 3, alpha = .6)  + ggtitle("Six Day War (June 1967)") +  
+  xlab("Date") + ylab("Sentiment") + scale_color_manual(values = c("House Democrat" = "dodgerblue2", "House Republican"="red", "Senate Democrat" = "dark blue", "Senate Republican" = "firebrick4")) + geom_line(data=crisis_trend, aes(x= as.Date(speech_cutoff_date), y = avg_agg_support))
+```
+
+## Works Cited:
+“A History of the Modern Middle East” 4th. Ed. by William L. Cleveland and Martin Bunton
+
+[UN Resolution 242 (1967)](https://library.cqpress.com/cqalmanac/document.php?id=cqal67-1312999&type=toc&num=18)
+
+Jun 8, 1967, U.S. VOWS TO SEEK A DURABLE PEACE, New York Times
+
+Jun 19 1967, President’s Plan, New York Times

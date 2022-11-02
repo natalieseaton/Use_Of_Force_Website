@@ -1,6 +1,6 @@
 ---
 title: "Iraq Regime Change Crisis (440)" ## change title to crisis name ie. "Iraq Regime Change Crisis (440)"
-author: "ICB Crisis No. 440" ## add the crisis number form the ICB data set "ICB Crisis No. 440"
+author: <a href="http://www.icb.umd.edu/dataviewer/?crisno=440">ICB Crisis No. 440</a> ## add the crisis number form the ICB data set "ICB Crisis No. 440"
 date: 'December 2001 - May 2003' ## change date to length of crisis "June 2002 - May 2003"
 output: html_document ## add output as an html_document
 runtime: shiny ## use shiny runtime in order to use the shiny packages for applications
