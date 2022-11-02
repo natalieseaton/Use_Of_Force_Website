@@ -22,7 +22,12 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 ```
 
 ## Background Information:
-#### In March 1998, the nationalist BJP party formed a coalition and pursued a more aggressive foreign policy regarding nuclear weapons. In April 1998, Pakistan tested its medium-range surface-to-surface Ghauri missile, which was significant because it could reach India. On May 11 and 13, 1998, India conducted five underground nuclear tests, breaking a 24-year self-imposed moratorium on nuclear testing. This event reversed India’s former stance on the Comprehensive Test Ban Treaty (CTBT), which India’s first prime minister championed. Pakistan was expected to follow suit, so the US immediately urged the Pakistani prime ministers against conducting nuclear tests in response. Additionally, the Glenn Amendment passed in 1977 required the US to impose economic sanctions on any state that detonated a nuclear device. India faced the sanctions nearly a couple of weeks after its tests. 
+#### __1998__
+In March, the nationalist BJP party formed a coalition and pursued a more aggressive foreign policy regarding nuclear weapons. 
+
+In April 1998, Pakistan tested its medium-range surface-to-surface Ghauri missile, which was significant because it could reach India. 
+
+On May 11 and 13, 1998, India conducted five underground nuclear tests, breaking a 24-year self-imposed moratorium on nuclear testing. This event reversed India’s former stance on the Comprehensive Test Ban Treaty (CTBT), which India’s first prime minister championed. Pakistan was expected to follow suit, so the US immediately urged the Pakistani prime ministers against conducting nuclear tests in response. Additionally, the Glenn Amendment passed in 1977 required the US to impose economic sanctions on any state that detonated a nuclear device. India faced the sanctions nearly a couple of weeks after its tests. 
 
 
 #### On May 18, the Indian Home Minister announced that India would follow a ‘pro-active’ policy towards Pakistani interference in Kashmir, yet on May 21, it offered to negotiate a ‘no-first-use- nuclear pact with Pakistan. This was likely to ensure Pakistan would reject US offers and prevent India from being singled out and subject to international pressure. Pakistan followed shortly after by detonating five nuclear devices. In response, the US similarly imposed sanctions on Pakistan. At this point, Canada, Germany, and Japan joined the US in also cutting off bilateral aid to India and Pakistan. On June 11, the crisis ended because the Pakistani government stated it was ready to formalize an arrangement with India and the international community. 

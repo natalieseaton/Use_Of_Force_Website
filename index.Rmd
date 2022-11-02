@@ -5,7 +5,6 @@ output: html_document
 runtime: shiny
 ---
 
-### Congressional Sentiment Analysis on Use of Force Project (ACRONYM?)
 This data set is a catalog of the congressional records over individual crises comprised by the International Crisis Behaviors Events project (ICBe) which covers 475 international crises from 1918 to 2015. Additional crises have been added post-2015 through 2021. 
 
 ### Relevent Links
