@@ -1,0 +1,134 @@
+---
+title: "Taiwan Strait I Crisis (146)"
+author: 
+- <a href="http://www.icb.umd.edu/dataviewer/?crisno=146">ICB Crisis No. 146</a> | <a href="https://www.crisisevents.org/146.html">ICBe Crisis No. 146</a> | <a href="https://library.cqpress.com/cqalmanac/document.php?id=cqal71-1253311">CQ Almanac</a> 
+date: "September 1954 - April 1955"
+runtime: shiny
+output: html_document
+---
+  
+```{r setup, include=FALSE}
+## firstly add all necessary packages, in order for the document to run, the packages must be first installed via the console unless you already have them in your RStudio, use "install_packages" as the command in the console
+library(downloadthis)
+library(shiny)
+library(ggplot2)
+library(DT)
+library(kableExtra)
+library(tidyverse)
+library(dplyr)
+library(googlesheets4)
+library(stringr)
+library(knitr)
+
+## second require the knit function to be "knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)" in order for all output to go from Rmarkdown to HTML
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+```
+
+## Summary of Crisis:
+The Taiwan Strait crisis was a conflict between the People’s Republic of China and Nationalist China, the latter of which received backing from the United States. 
+
+**Background (1949-1954)**
+The Chinese Civil War concluded with the victory of the Communist Party and the Nationalist Party’s retreat to Taiwan in December 1949. Intervention from the United Nations brought an end to the crisis for the People’s Republic of China, but tensions between the two parties remained over reunification. 
+
+**September - December 1954**
+	The first Taiwan Strait crisis was triggered when the People’s Republic of China (PRC), led by Zhou Enlai, bombed the islands of Quemoy and Matsu in response to the creation of the Southeast Asia Treaty Organization (SEATO) on September 8, 1954. Congress was left in the dark for the first few months of the crisis, with the majority of decision-making taking place covertly within the National Security Council. 
+
+**January - February 1955**
+	1955 brought Congress to the forefront of American policy toward the Taiwan Strait. On January 11, Communist planes bombed the Tachen Islands, forcing the United States to reevaluate its approach. In response, President Eisenhower requested an expansion of authority from Congress on January 24, leading to the passage of the Formosa Resolution in the House on January 28 and the Senate on January 29. The Formosa Resolution enjoyed bipartisan support in both the House and Senate, and granted the president increased authority to utilize military power as deemed necessary for the defense of Formosa. On February 9, the Mutual Defense Treaty, which committed the United States to the defense of Formosa and the Pescadores, was ratified by the Senate.
+
+**March - April 1955**
+Unrest within Congress toward ambiguity in the administration’s policy soon fractured the bipartisan atmosphere. Disagreements between Republicans and Democrats within Congress intensified, and on April 20 Eisenhower authorized the Robertson-Radford mission to attempt to persuade Chiang Kai-Shek to withdraw Chinese troops from the islands. After the failure of the mission, the crisis came to an end with Zhou Enlai’s announcement that China was willing to negotiate with the United States over the Taiwan Strait on April 23. 
+
+**Aftermath**
+	The prospect of negotiations with China was met with widespread approval from both the American public and Congress, and an informal peace was reached. However, unresolved tensions regarding reunification and the roles of other powers remained, eventually erupting into the second Taiwan Strait crisis in 1958.
+	
+## Relevant Votes
+```{r, results='asis'}
+## add in the parenthesis of the read_sheet function the link of the Google sheet
+## don't use the shared link, use the direct http link from chrome
+
+Votes  <- read_sheet("https://docs.google.com/spreadsheets/d/1NWCZrUemu15TJioIEE8EdHNYsHMgGMbmX6xRwQX4ydw/edit#gid=871353007","Votes")
+
+Votes$Bill <- paste0("[", Votes$Bill, "](",Votes$Link, ")")
+Votes <- rename(Votes, Description="Descrip")
+Votes <-  select(Votes, c(Date,Bill,Description,Outcome))
+
+#Relevant_Votes <- data.frame(Votes$Date,Votes$Bill, Votes$Description, Votes$Outcome)
+
+kable(Votes)  %>% 
+  kable_styling(latex_options="scale_down")
+```
+
+## Relevent Data:
+```{r, warning = FALSE}
+
+## add in the parenthesis of the read_sheet function the link of the Google sheet
+## don't use the shared link, use the direct http link from chrome
+
+Sheet  <- read_sheet("https://docs.google.com/spreadsheets/d/1NWCZrUemu15TJioIEE8EdHNYsHMgGMbmX6xRwQX4ydw/edit#gid=1276040235")
+
+## data cleaning and subset below, functions for all sheets
+Sheet$House <- str_sub(Sheet$MasterID,-4,-4)
+Sheet$Party <- str_sub(Sheet$MasterID,-7,-5)
+Sheet$Party <- ifelse(Sheet$Party == "SBI", 100, Sheet$Party )
+Sheet$HouseParty <- paste(Sheet$House, Sheet$Party)
+
+Sheet$HouseParty <- ifelse(Sheet$HouseParty == "H 100", "House Democrat", Sheet$HouseParty)
+Sheet$HouseParty <- ifelse(Sheet$HouseParty == "S 100", "Senate Democrat", Sheet$HouseParty)
+Sheet$HouseParty <- ifelse(Sheet$HouseParty == "H 200", "House Republican", Sheet$HouseParty)
+Sheet$HouseParty <- ifelse(Sheet$HouseParty == "S 200", "Senate Republican", Sheet$HouseParty)
+
+Sheet$Irrelevant <- as.character(Sheet$Irrelevant)
+
+Sheet <- subset(Sheet, Sheet$Irrelevant == "NA")
+
+Sheet$Advocates_for_Use_of_American_Military_Force <- as.character(Sheet$Advocates_for_Use_of_American_Military_Force)
+Sheet$Advocates_against_Use_of_American_Military_Force <- as.character(Sheet$Advocates_against_Use_of_American_Military_Force)
+
+Sheet <- subset(Sheet, Sheet$Advocates_for_Use_of_American_Military_Force == 1 | Sheet$Advocates_against_Use_of_American_Military_Force == 1)
+
+
+Sheet$date<-as.Date(as.character(Sheet$date),format="%Y%m%d")
+
+Sheet$HD <- ifelse(Sheet$Advocates_for_Use_of_American_Military_Force == "NA",0,1)
+
+
+Sheet$HD <- ifelse(Sheet$HD == 1,"Support Force","Oppose Force")
+
+## shiny button function below for csv download
+## change the title of the csv file paste 
+## this is being funky right now so if it doesn't work no stress
+Sheet %>%
+  download_this(
+    output_name = "taiwan_strait_i_146_dataset",
+    output_extension = ".xlsx",
+    button_label = "Download data as xlsx",
+    button_type = "primary",
+    has_icon = TRUE,
+    icon = "fa fa-save"
+  )
+
+```
+
+## Plot on Use of Force:
+```{r, warning = FALSE}
+
+## this code subsets all the aggregate data for the trend line, all you have to do to retrieve the trend line for your crisis is change the crisno == "440" value to whatever crisis number the new crisis has
+trend_sheet  <- read_sheet("https://docs.google.com/spreadsheets/d/1s1tsOtG2CcIrLPN7RxT-QRY7vNiYFy8SMA3tbGk_PpI/edit#gid=1633578064")
+crisis_trend <- subset(trend_sheet,crisno == "146")
+
+## remember to change the ggtitle to the title of the crisis and dates
+ggplot(Sheet, aes(date, HD)) +  geom_jitter(aes(colour = HouseParty),width = 2, height = 0.3, size = 3, alpha = .6)  + ggtitle("Taiwan Strait I Crisis (September 1954 - April 1955)") +  
+  xlab("Date") + ylab("Sentiment") + scale_color_manual(values = c("House Democrat" = "dodgerblue2", "House Republican"="red", "Senate Democrat" = "dark blue", "Senate Republican" = "firebrick4")) + geom_line(data=crisis_trend, aes(x= as.Date(speech_cutoff_date), y = avg_agg_support))
+```
+
+## Works Cited:
+[“Eisenhower, Congress, and the 1954-55 Offshore Island Crisis” by Robert Accinelli](https://www.jstor.org/stable/27550618)
+
+[Formosa Resolution (1955)](https://www.govinfo.gov/content/pkg/STATUTE-69/pdf/STATUTE-69-Pg7.pdf)
+
+[Mutual Defense Treaty (1955)](https://avalon.law.yale.edu/20th_century/chin001.asp)
+
+[Southeast Asia Collective Defense Treaty (1954)](https://avalon.law.yale.edu/20th_century/usmu003.asp)
+
+[“Formosa Uneasy Over US Mission; Radford-Robertson Party Arrives” (New York Times)](https://www.nytimes.com/1955/04/24/archives/formosa-uneasy-over-us-mission-radfordrobertson-party.html)
